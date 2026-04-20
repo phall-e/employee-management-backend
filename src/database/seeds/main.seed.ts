@@ -10,6 +10,8 @@ import { RoleEntity } from '@modules/admin/system/role/entities/role.entity';
 import { roles } from './role.seed';
 import { BranchEntity } from '@modules/admin/master-data/branch/entities/branch.entity';
 import { branches } from './branch.seed';
+import { FloorEntity } from '@modules/admin/master-data/floor/entities/floor.entity';
+import { floors } from './floor.seed';
 
 export default class MainSeeder implements Seeder {
     
@@ -47,6 +49,7 @@ export default class MainSeeder implements Seeder {
             .execute();
 
         await database.manager.save(BranchEntity, branches);
+        await database.manager.save(FloorEntity, floors);
         
     } 
 

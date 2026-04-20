@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, ParseIntPipe, Put } from '@nestjs/common';
 import { BranchService } from './branch.service';
 import { CreateBranchRequestDto } from './dto/create-branch-request.dto';
 import { UpdateBranchRequestDto } from './dto/update-branch-request.dto';

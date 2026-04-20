@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, ParseIntPipe } from '@nestjs/common';
-import { <%= classify(name) %>Service } from './<%= dasherize(name) %>.service';
-import { Create<%= classify(name) %>RequestDto } from './dto/create-<%= dasherize(name) %>-request.dto';
-import { Update<%= classify(name) %>RequestDto } from './dto/update-<%= dasherize(name) %>-request.dto';
-import { <%= classify(name) %>ResponseDto } from './dto/<%= dasherize(name) %>-response.dto';
+import { FloorService } from './floor.service';
+import { CreateFloorRequestDto } from './dto/create-floor-request.dto';
+import { UpdateFloorRequestDto } from './dto/update-floor-request.dto';
+import { FloorResponseDto } from './dto/floor-response.dto';
 import { CurrentUser } from '@modules/auth/decorators/current-user.decorator';
 import { UserEntity } from '@modules/admin/system/user/entities/user.entity';
 import { ApiBearerAuth, ApiForbiddenResponse, ApiResponse, ApiTags, ApiUnauthorizedResponse, ApiNotFoundResponse } from '@nestjs/swagger';
@@ -10,45 +10,45 @@ import { Permissions } from '@modules/auth/decorators/permissions.decorator';
 import { ApiPaginatedResponse } from '@common/paginations/api-paginated-response.decorator';
 import { Paginate, type PaginateQuery } from 'nestjs-paginate';
 import { PaginatedResponse } from '@common/paginations/paginated-response.type';
-import { <%= classify(name) %>Entity } from './entities/<%= dasherize(name) %>.entity';
+import { FloorEntity } from './entities/floor.entity';
 import { SWAGGER_TOKEN_NAME } from 'src/swagger/config';
 
-@ApiTags('<%= classify(name) %>')
+@ApiTags('Floor')
 @ApiBearerAuth(SWAGGER_TOKEN_NAME)
 @Controller({
-  path: 'admin/<%= dasherize(name) %>',
+  path: 'admin/master-data/floors',
   version: '1',
 })
-export class <%= classify(name) %>Controller {
+export class FloorController {
 
   constructor(
-    private <%= camelize(name)%>Service: <%= classify(name) %>Service,
+    private floorService: FloorService,
   ) {}
 
   @Post()
-  @Permissions('<%= dasherize(name) %>-create')
+  @Permissions('floor-create')
   @ApiResponse({
     status: 201,
-    type: <%= classify(name) %>ResponseDto,
-    description: '<%= classify(name) %> created successfully',
+    type: FloorResponseDto,
+    description: 'Floor created successfully',
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   @ApiForbiddenResponse({ description: 'Forbidden' })
   public create(
-    @Body() dto: Create<%= classify(name) %>RequestDto,
+    @Body() dto: CreateFloorRequestDto,
     @CurrentUser() user: UserEntity
-  ): Promise<<%= classify(name) %>ResponseDto> {
-    return this.<%= camelize(name) %>Service.create({
+  ): Promise<FloorResponseDto> {
+    return this.floorService.create({
       ...dto,
       createdByUserId: user.id,
     });
   }
 
   @Get()
-  @Permissions('<%= dasherize(name) %>-read')
-  @ApiPaginatedResponse(<%= classify(name) %>ResponseDto)
-  public findAll(@Paginate() query: PaginateQuery): Promise<PaginatedResponse<<%= classify(name) %>Entity, <%= classify(name) %>ResponseDto>> {
-    return this.<%= camelize(name) %>Service.list(query);
+  @Permissions('floor-read')
+  @ApiPaginatedResponse(FloorResponseDto)
+  public findAll(@Paginate() query: PaginateQuery): Promise<PaginatedResponse<FloorEntity, FloorResponseDto>> {
+    return this.floorService.list(query);
   }
 
   @Get('select-options')
@@ -73,52 +73,52 @@ export class <%= classify(name) %>Controller {
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   public findAllForSelection(): Promise<{id: number; nameEn: string; nameKh: string}[]> {
-    return this.<%= camelize(name) %>Service.findAllForSelection();
+    return this.floorService.findAllForSelection();
   }
 
   @Get(':id')
   @ApiResponse({
     status: 200,
-    type: <%= classify(name) %>ResponseDto,
-    description: 'Find one of <%= classify(name) %>',
+    type: FloorResponseDto,
+    description: 'Find one of Floor',
   })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   @ApiNotFoundResponse({ description: 'Not found' })
   public findOne(
     @Param('id', ParseIntPipe) id: number,
-  ): Promise<<%= classify(name) %>ResponseDto> {
-    return this.<%= camelize(name) %>Service.findOne(id);
+  ): Promise<FloorResponseDto> {
+    return this.floorService.findOne(id);
   }
 
   @Put(':id')
   @ApiResponse({
     status: 200,
-    type: <%= classify(name) %>ResponseDto,
-    description: '<%= classify(name) %> updated successfully',
+    type: FloorResponseDto,
+    description: 'Floor updated successfully',
   })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   @ApiNotFoundResponse({ description: 'Not found' })
   public update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() dto: Update<%= classify(name) %>RequestDto,
-  ): Promise<<%= classify(name) %>ResponseDto> {
-    return this.<%= camelize(name) %>Service.update(id, dto);
+    @Body() dto: UpdateFloorRequestDto,
+  ): Promise<FloorResponseDto> {
+    return this.floorService.update(id, dto);
   }
 
   @Delete(':id')
   @ApiResponse({
     status: 200,
-    type: <%= classify(name) %>ResponseDto,
-    description: '<%= classify(name) %> deleted successfully',
+    type: FloorResponseDto,
+    description: 'Floor deleted successfully',
   })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   @ApiNotFoundResponse({ description: 'Not found' })
   public remove(
     @Param('id', ParseIntPipe) id: number,
-  ): Promise<<%= classify(name) %>ResponseDto> {
-    return this.<%= camelize(name) %>Service.remove(id);
+  ): Promise<FloorResponseDto> {
+    return this.floorService.remove(id);
   }
 }

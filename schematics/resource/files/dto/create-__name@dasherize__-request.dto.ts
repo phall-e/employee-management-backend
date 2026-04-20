@@ -7,11 +7,7 @@ export class Create<%= classify(name) %>RequestDto {
   @IsNotEmpty()
   @IsString()
   <%= camelize(field) %>: string;
-
 <% } %>
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsInt()
   createdByUserId: number;
 
 }

@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 import { commonFields } from "../common.fields";
 
-const tableName = 'admin.<%= dasherize(name) %>';
+const tableName = 'admin.floors';
 
 
-export class <%= classify(name) %>Migration<%= timestamp %> implements MigrationInterface {
+export class FloorMigration1776692664373 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
@@ -19,19 +19,42 @@ export class <%= classify(name) %>Migration<%= timestamp %> implements Migration
                         isPrimary: true,
                         isNullable: false,
                     },
-                    <% fields.forEach(field => { %> 
+                     
                     {
-                        name: '<%= dasherize(field) %>',
+                        name: 'code',
+                        type: 'varchar',
+                        length: '160',
+                        isUnique: true,
+                        isNullable: false,
+                    },
+                     
+                    {
+                        name: 'name_en',
                         type: 'varchar',
                         length: '160',
                         isNullable: false,
                     },
-                    <% }) %>
+                     
+                    {
+                        name: 'name_kh',
+                        type: 'varchar',
+                        length: '160',
+                        isNullable: false,
+                    },
+                     
+                    {
+                        name: 'description',
+                        type: 'varchar',
+                        length: '160',
+                        isNullable: true,
+                    },
+
                     {
                         name: 'created_by_user_id',
                         type: 'integer',
                         isNullable: false,
                     },
+                    
                     ...commonFields,
                 ],
             }),

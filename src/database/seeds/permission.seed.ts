@@ -34,6 +34,23 @@ export const permissions = [
         ],
     },
     {
+        name: 'Floor',
+        permissions: [
+            {
+                name: 'floor-read',
+            },
+            {
+                name: 'floor-create',
+            },
+            {
+                name: 'floor-edit',
+            },
+            {
+                name: 'floor-delete',
+            },
+        ],
+    },
+    {
         name: 'Department',
         permissions: [
             {
