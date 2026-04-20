@@ -28,7 +28,7 @@ export class <%= classify(name) %>Entity extends BaseEntity {
     })
     createdByUserId: number;
 
-    @ManyToOne(() => UserEntity, { nullable: true, eager: true })
+    @ManyToOne(() => UserEntity, { nullable: true })
     @JoinColumn({
         name: 'created_by_user_id',
     })

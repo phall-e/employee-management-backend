@@ -51,6 +51,23 @@ export const permissions = [
         ],
     },
     {
+        name: 'Block',
+        permissions: [
+            {
+                name: 'block-read',
+            },
+            {
+                name: 'block-create',
+            },
+            {
+                name: 'block-edit',
+            },
+            {
+                name: 'block-delete',
+            },
+        ],
+    },
+    {
         name: 'Department',
         permissions: [
             {
