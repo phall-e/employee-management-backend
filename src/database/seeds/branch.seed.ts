@@ -1,0 +1,32 @@
+export const branches = [
+  {
+    code: 'BR001',
+    nameEn: 'Head Office',
+    nameKh: 'ការិយាល័យកណ្ដាល',
+    description: 'Main branch in Phnom Penh',
+    phoneNumber: '012345678',
+    managerId: 1,
+    address: 'Phnom Penh',
+    createdById: 1,
+  },
+  {
+    code: 'BR002',
+    nameEn: 'Siem Reap Branch',
+    nameKh: 'សាខាសៀមរាប',
+    description: 'Branch in Siem Reap',
+    phoneNumber: '098765432',
+    managerId: 1,
+    address: 'Siem Reap',
+    createdById: 1,
+  },
+  {
+    code: 'BR003',
+    nameEn: 'Battambang Branch',
+    nameKh: 'សាខាបាត់ដំបង',
+    description: 'Branch in Battambang',
+    phoneNumber: '011223344',
+    managerId: 1,
+    address: 'Battambang',
+    createdById: 1,
+  },
+];

@@ -17,6 +17,23 @@ export const permissions = [
         ],
     },
     {
+        name: 'Branch',
+        permissions: [
+            {
+                name: 'branch-read',
+            },
+            {
+                name: 'branch-create',
+            },
+            {
+                name: 'branch-edit',
+            },
+            {
+                name: 'branch-delete',
+            },
+        ],
+    },
+    {
         name: 'Department',
         permissions: [
             {

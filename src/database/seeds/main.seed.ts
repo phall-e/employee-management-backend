@@ -8,6 +8,8 @@ import { PermissionGroupEntity } from '@modules/admin/system/permission/entities
 import { permissions } from './permission.seed';
 import { RoleEntity } from '@modules/admin/system/role/entities/role.entity';
 import { roles } from './role.seed';
+import { BranchEntity } from '@modules/admin/master-data/branch/entities/branch.entity';
+import { branches } from './branch.seed';
 
 export default class MainSeeder implements Seeder {
     
@@ -43,6 +45,8 @@ export default class MainSeeder implements Seeder {
                 role_id: 1,
             })))
             .execute();
+
+        await database.manager.save(BranchEntity, branches);
         
     } 
 
