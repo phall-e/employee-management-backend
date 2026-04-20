@@ -23,6 +23,8 @@ export class BlockService extends BasePaginationCrudService<BlockEntity, BlockRe
     'nameEn',
     'nameKh',
     'description',
+    'branch.nameEn',
+    'branch.nameKh',
   ];
   protected SEARCHABLE_COLUMNS = [
     'code',
@@ -30,8 +32,10 @@ export class BlockService extends BasePaginationCrudService<BlockEntity, BlockRe
     'nameKh',
     'description',
     'createdByUser.username',
+    'branch.nameEn',
+    'branch.nameKh',
   ];
-  protected RELATIONSIP_FIELDS = ['createdByUser'];
+  protected RELATIONSIP_FIELDS = ['createdByUser', 'branch'];
 
   constructor(
     @InjectRepository(BlockEntity)

@@ -68,6 +68,23 @@ export const permissions = [
         ],
     },
     {
+        name: 'Building',
+        permissions: [
+            {
+                name: 'building-read',
+            },
+            {
+                name: 'building-create',
+            },
+            {
+                name: 'building-edit',
+            },
+            {
+                name: 'building-delete',
+            },
+        ],
+    },
+    {
         name: 'Department',
         permissions: [
             {
