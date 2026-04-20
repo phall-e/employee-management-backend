@@ -5,7 +5,11 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "schematics": "./schematics/collection.json",
   "scripts": {
+    "build:schematics": "tsc -p tsconfig.schematics.json && cpx \"schematics/**/files/**\" dist/schematics",
+    "generate": "schematics .:resource --no-dry-run",
+    "schematics": "schematics",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -26,6 +30,9 @@
     "seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d src/database/data-source.ts"
   },
   "dependencies": {
+    "@angular-devkit/core": "^21.2.7",
+    "@angular-devkit/schematics": "^21.2.7",
+    "@angular-devkit/schematics-cli": "^21.2.7",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",
@@ -37,6 +44,7 @@
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
+    "cpx": "^1.5.0",
     "nestjs-paginate": "^12.11.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",

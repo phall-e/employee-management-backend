@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "resource",
+  "title": "Generate Nest Resource",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Resource name"
+    },
+    "fields": {
+        "type": "string",
+        "description": "Entity fields (comma seperated)"
+    }
+  },
+  "required": ["name"]
+}

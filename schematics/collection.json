@@ -1,0 +1,10 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "resource": {
+      "description": "Generate nest resource",
+      "factory": "../dist/schematics/resource/index#resourceGenerator",
+      "schema": "./resource/schema.json"
+    }
+  }
+}
