@@ -22,6 +22,8 @@ import { RoomStatusEntity } from '@modules/admin/master-data/room-status/entitie
 import { roomStatuses } from './room-status.seed';
 import { TenantStatusEntity } from '@modules/admin/tenant/room-tenant/entities/tenant-status.entity';
 import { tenantStatuses } from './tenant-status.seed';
+import { PaymentStatusEntity } from '@modules/admin/payment/room-payment/entities/payment-status.entity';
+import { paymentStatuses } from './payment-status.seed';
 
 export default class MainSeeder implements Seeder {
     
@@ -65,6 +67,7 @@ export default class MainSeeder implements Seeder {
         await database.manager.save(RoomTypeEntity, roomTypes);
         await database.manager.save(RoomStatusEntity, roomStatuses);
         await database.manager.save(TenantStatusEntity, tenantStatuses);
+        await database.manager.save(PaymentStatusEntity, paymentStatuses);
         
     } 
 

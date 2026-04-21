@@ -152,4 +152,21 @@ export const permissions = [
             },
         ],
     },
+    {
+        name: 'Room payment',
+        permissions: [
+            {
+                name: 'room-payment-read',
+            },
+            {
+                name: 'room-payment-create',
+            },
+            {
+                name: 'room-payment-edit',
+            },
+            {
+                name: 'room-payment-delete',
+            },
+        ],
+    },
 ];
