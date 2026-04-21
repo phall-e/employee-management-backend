@@ -33,7 +33,7 @@ export class RoomTenantResponseDto {
     @ApiProperty()
     profile: string;
 
-    @ApiProperty()
+    @ApiProperty({ type: () => [AttachmentDto]})
     attachments: AttachmentDto[];
 
     @ApiProperty()

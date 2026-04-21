@@ -36,7 +36,10 @@ export class CreateRoomTenantRequestDto {
   @IsOptional()
   profile?: string;
 
-  @ApiProperty()
+  @ApiProperty({ 
+    required: false,
+    type: () => [AttachmentDto],
+  })
   @IsOptional()
   @IsArray()
   attachments?: AttachmentDto[];

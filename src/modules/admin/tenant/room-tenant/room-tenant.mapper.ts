@@ -26,7 +26,7 @@ export class RoomTenantMapper {
         
         dto.profile = entity.profile;
         
-        dto.attachments = entity.attachments;
+        dto.attachments = entity.attachments ? [...entity.attachments] : [];;
         
         dto.statusId = entity.statusId;
         
@@ -58,7 +58,7 @@ export class RoomTenantMapper {
         
         entity.profile = dto.profile;
         
-        entity.attachments = dto.attachments;
+        entity.attachments = dto.attachments ? [...dto.attachments] : [];
         
         entity.statusId = dto.statusId;
         
@@ -83,7 +83,7 @@ export class RoomTenantMapper {
         
         entity.profile = dto.profile;
         
-        entity.attachments = dto.attachments;
+        entity.attachments = dto.attachments ? [...dto.attachments] : [];
         
         entity.statusId = dto.statusId;
         
