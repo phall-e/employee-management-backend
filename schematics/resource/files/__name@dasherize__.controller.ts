@@ -53,23 +53,23 @@ export class <%= classify(name) %>Controller {
 
   @Get('select-options')
   @ApiResponse({
-  status: 200,
-  schema: {
-    type: 'object',
-    properties: {
-      data: {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            id: { type: 'number' },
-            nameEn: { type: 'string' },
-            nameKh: { type: 'string' },
+    status: 200,
+    schema: {
+      type: 'object',
+      properties: {
+        data: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'number' },
+              nameEn: { type: 'string' },
+              nameKh: { type: 'string' },
+            },
           },
         },
       },
     },
-  },
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   public findAllForSelection(): Promise<{id: number; nameEn: string; nameKh: string}[]> {
@@ -77,6 +77,7 @@ export class <%= classify(name) %>Controller {
   }
 
   @Get(':id')
+  @Permissions('<%= dasherize(name) %>-read')
   @ApiResponse({
     status: 200,
     type: <%= classify(name) %>ResponseDto,
@@ -92,6 +93,7 @@ export class <%= classify(name) %>Controller {
   }
 
   @Put(':id')
+  @Permissions('<%= dasherize(name) %>-update')
   @ApiResponse({
     status: 200,
     type: <%= classify(name) %>ResponseDto,
@@ -108,6 +110,7 @@ export class <%= classify(name) %>Controller {
   }
 
   @Delete(':id')
+  @Permissions('<%= dasherize(name) %>-delete')
   @ApiResponse({
     status: 200,
     type: <%= classify(name) %>ResponseDto,
