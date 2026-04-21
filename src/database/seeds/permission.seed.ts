@@ -118,4 +118,21 @@ export const permissions = [
             },
         ],
     },
+    {
+        name: 'Room',
+        permissions: [
+            {
+                name: 'room-read',
+            },
+            {
+                name: 'room-create',
+            },
+            {
+                name: 'room-edit',
+            },
+            {
+                name: 'room-delete',
+            },
+        ],
+    },
 ];

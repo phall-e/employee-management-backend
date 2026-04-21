@@ -12,5 +12,6 @@ import { FloorEntity } from './entities/floor.entity';
   ],
   controllers: [FloorController],
   providers: [FloorService],
+  exports: [FloorService],
 })
 export class FloorModule {}

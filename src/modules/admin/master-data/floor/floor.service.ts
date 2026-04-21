@@ -65,6 +65,9 @@ export class FloorService extends BasePaginationCrudService<FloorEntity, FloorRe
 
       const entity = await this.floorRepository.findOne({
         where: { id },
+        relations: {
+          createdByUser: true,
+        }
       });
 
       if (!entity) throw new NotFoundException();

@@ -1,6 +1,6 @@
 export const branches = [
   {
-    code: 'BR001',
+    code: 'BR-001',
     nameEn: 'Head Office',
     nameKh: 'ការិយាល័យកណ្ដាល',
     description: 'Main branch in Phnom Penh',
@@ -10,7 +10,7 @@ export const branches = [
     createdById: 1,
   },
   {
-    code: 'BR002',
+    code: 'BR-002',
     nameEn: 'Siem Reap Branch',
     nameKh: 'សាខាសៀមរាប',
     description: 'Branch in Siem Reap',
@@ -20,7 +20,7 @@ export const branches = [
     createdById: 1,
   },
   {
-    code: 'BR003',
+    code: 'BR-003',
     nameEn: 'Battambang Branch',
     nameKh: 'សាខាបាត់ដំបង',
     description: 'Branch in Battambang',

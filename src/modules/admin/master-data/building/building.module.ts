@@ -12,5 +12,6 @@ import { BuildingEntity } from './entities/building.entity';
   ],
   controllers: [BuildingController],
   providers: [BuildingService],
+  exports: [BuildingService],
 })
 export class BuildingModule {}

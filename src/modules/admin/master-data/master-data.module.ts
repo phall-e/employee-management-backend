@@ -5,6 +5,7 @@ import { BlockModule } from './block/block.module';
 import { BuildingModule } from './building/building.module';
 import { RoomTypeModule } from './room-type/room-type.module';
 import { RoomStatusModule } from './room-status/room-status.module';
+import { RoomModule } from './room/room.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { RoomStatusModule } from './room-status/room-status.module';
     BuildingModule,
     RoomTypeModule,
     RoomStatusModule,
+    RoomModule,
   ]
 })
 export class MasterDataModule {}

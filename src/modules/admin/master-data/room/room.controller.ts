@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, ParseIntPipe } from '@nestjs/common';
-import { BuildingService } from './building.service';
-import { CreateBuildingRequestDto } from './dto/create-building-request.dto';
-import { UpdateBuildingRequestDto } from './dto/update-building-request.dto';
-import { BuildingResponseDto } from './dto/building-response.dto';
+import { RoomService } from './room.service';
+import { CreateRoomRequestDto } from './dto/create-room-request.dto';
+import { UpdateRoomRequestDto } from './dto/update-room-request.dto';
+import { RoomResponseDto } from './dto/room-response.dto';
 import { CurrentUser } from '@modules/auth/decorators/current-user.decorator';
 import { UserEntity } from '@modules/admin/system/user/entities/user.entity';
 import { ApiBearerAuth, ApiForbiddenResponse, ApiResponse, ApiTags, ApiUnauthorizedResponse, ApiNotFoundResponse } from '@nestjs/swagger';
@@ -10,117 +10,119 @@ import { Permissions } from '@modules/auth/decorators/permissions.decorator';
 import { ApiPaginatedResponse } from '@common/paginations/api-paginated-response.decorator';
 import { Paginate, type PaginateQuery } from 'nestjs-paginate';
 import { PaginatedResponse } from '@common/paginations/paginated-response.type';
-import { BuildingEntity } from './entities/building.entity';
+import { RoomEntity } from './entities/room.entity';
 import { SWAGGER_TOKEN_NAME } from 'src/swagger/config';
 
-@ApiTags('Building')
+@ApiTags('Room')
 @ApiBearerAuth(SWAGGER_TOKEN_NAME)
 @Controller({
-  path: 'admin/master-data/buildings',
+  path: 'admin/master-data/rooms',
   version: '1',
 })
-export class BuildingController {
+export class RoomController {
 
   constructor(
-    private buildingService: BuildingService,
+    private roomService: RoomService,
   ) {}
 
   @Post()
-  @Permissions('building-create')
+  @Permissions('room-create')
   @ApiResponse({
     status: 201,
-    type: BuildingResponseDto,
-    description: 'Building created successfully',
+    type: [RoomResponseDto],
+    description: 'Room created successfully',
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   @ApiForbiddenResponse({ description: 'Forbidden' })
   public create(
-    @Body() dto: CreateBuildingRequestDto,
+    @Body() dto: CreateRoomRequestDto,
     @CurrentUser() user: UserEntity
-  ): Promise<BuildingResponseDto> {
-    return this.buildingService.create({
+  ): Promise<RoomResponseDto[]> {
+    return this.roomService.create({
       ...dto,
       createdByUserId: user.id,
     });
   }
 
   @Get()
-  @Permissions('building-read')
-  @ApiPaginatedResponse(BuildingResponseDto)
-  public findAll(@Paginate() query: PaginateQuery): Promise<PaginatedResponse<BuildingEntity, BuildingResponseDto>> {
-    return this.buildingService.list(query);
+  @Permissions('room-read')
+  @ApiPaginatedResponse(RoomResponseDto)
+  public findAll(@Paginate() query: PaginateQuery): Promise<PaginatedResponse<RoomEntity, RoomResponseDto>> {
+    return this.roomService.list(query);
   }
 
   @Get('select-options')
   @ApiResponse({
-  status: 200,
-  schema: {
-    type: 'object',
-    properties: {
-      data: {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            id: { type: 'number' },
-            code: { type: 'string' },
-            nameEn: { type: 'string' },
-            nameKh: { type: 'string' },
-            blockId: { type: 'number' },
+    status: 200,
+    schema: {
+      type: 'object',
+      properties: {
+        data: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'number' },
+              roomNumber: { type: 'string' },
+              buildingId: { type: 'number' },
+              floorId: { type: 'number' },
+            },
           },
         },
       },
     },
-  },
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
-  public findAllForSelection(): Promise<{id: number; code: string; nameEn: string; nameKh: string; blockId: number}[]> {
-    return this.buildingService.findAllForSelection();
+  public findAllForSelection(): Promise<{id: number; roomNumber: string; buildingId: number; floorId: number}[]> {
+    return this.roomService.findAllForSelection();
   }
 
   @Get(':id')
+  @Permissions('room-read')
   @ApiResponse({
     status: 200,
-    type: BuildingResponseDto,
-    description: 'Find one of Building',
+    type: RoomResponseDto,
+    description: 'Find one of Room',
   })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   @ApiNotFoundResponse({ description: 'Not found' })
   public findOne(
     @Param('id', ParseIntPipe) id: number,
-  ): Promise<BuildingResponseDto> {
-    return this.buildingService.findOne(id);
+  ): Promise<RoomResponseDto> {
+    return this.roomService.findOne(id);
   }
 
   @Put(':id')
+  @Permissions('room-edit')
   @ApiResponse({
     status: 200,
-    type: BuildingResponseDto,
-    description: 'Building updated successfully',
+    type: RoomResponseDto,
+    description: 'Room updated successfully',
   })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   @ApiNotFoundResponse({ description: 'Not found' })
   public update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() dto: UpdateBuildingRequestDto,
-  ): Promise<BuildingResponseDto> {
-    return this.buildingService.update(id, dto);
+    @Body() dto: UpdateRoomRequestDto,
+  ): Promise<RoomResponseDto> {
+    return this.roomService.update(id, dto);
   }
 
   @Delete(':id')
+  @Permissions('room-delete')
   @ApiResponse({
     status: 200,
-    type: BuildingResponseDto,
-    description: 'Building deleted successfully',
+    type: RoomResponseDto,
+    description: 'Room deleted successfully',
   })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   @ApiNotFoundResponse({ description: 'Not found' })
   public remove(
     @Param('id', ParseIntPipe) id: number,
-  ): Promise<BuildingResponseDto> {
-    return this.buildingService.remove(id);
+  ): Promise<RoomResponseDto> {
+    return this.roomService.remove(id);
   }
 }

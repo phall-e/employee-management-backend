@@ -66,7 +66,7 @@ export class BuildingService extends BasePaginationCrudService<BuildingEntity, B
     }
   }
 
-  public async findAllForSelection(): Promise<{id: number; code: string; nameEn: string; nameKh: string;}[]> {
+  public async findAllForSelection(): Promise<{id: number; code: string; nameEn: string; nameKh: string; blockId: number}[]> {
     try {
       const entity = await this.buildingRepository.find({
         select: {
@@ -74,6 +74,7 @@ export class BuildingService extends BasePaginationCrudService<BuildingEntity, B
           code: true,
           nameEn: true,
           nameKh: true,
+          blockId: true,
         }
       });
       return entity;
@@ -87,6 +88,11 @@ export class BuildingService extends BasePaginationCrudService<BuildingEntity, B
 
       const entity = await this.buildingRepository.findOne({
         where: { id },
+        relations: {
+          block: {
+            branch: true,
+          }
+        }
       });
 
       if (!entity) throw new NotFoundException();
