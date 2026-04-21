@@ -135,4 +135,21 @@ export const permissions = [
             },
         ],
     },
+    {
+        name: 'Room tenant',
+        permissions: [
+            {
+                name: 'room-tenant-read',
+            },
+            {
+                name: 'room-tenant-create',
+            },
+            {
+                name: 'room-tenant-edit',
+            },
+            {
+                name: 'room-tenant-delete',
+            },
+        ],
+    },
 ];
