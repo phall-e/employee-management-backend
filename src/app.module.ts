@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { ModulesModule } from './modules/modules.module';
+import { MinioModule } from './minio/minio.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { ModulesModule } from './modules/modules.module';
       envFilePath: '.env',
     }),
     DatabaseModule,
+    MinioModule,
     ModulesModule,
   ],
   controllers: [],
