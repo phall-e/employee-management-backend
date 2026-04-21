@@ -85,20 +85,20 @@ export const permissions = [
         ],
     },
     {
-        name: 'Department',
+        name: 'Room Type',
         permissions: [
             {
-                name: 'department-read',
+                name: 'room-type-read',
             },
             {
-                name: 'department-create',
+                name: 'room-type-create',
             },
             {
-                name: 'department-edit',
+                name: 'room-type-edit',
             },
             {
-                name: 'department-delete',
+                name: 'room-type-delete',
             },
         ],
-    }
+    },
 ];

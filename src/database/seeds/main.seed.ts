@@ -16,6 +16,8 @@ import { BlockEntity } from '@modules/admin/master-data/block/entities/block.ent
 import { blocks } from './block.seed';
 import { BuildingEntity } from '@modules/admin/master-data/building/entities/building.entity';
 import { buildings } from './building.seed';
+import { RoomTypeEntity } from '@modules/admin/master-data/room-type/entities/room-type.entity';
+import { roomTypes } from './room-type.seed';
 
 export default class MainSeeder implements Seeder {
     
@@ -56,6 +58,7 @@ export default class MainSeeder implements Seeder {
         await database.manager.save(FloorEntity, floors);
         await database.manager.save(BlockEntity, blocks);
         await database.manager.save(BuildingEntity, buildings);
+        await database.manager.save(RoomTypeEntity, roomTypes);
         
     } 
 
