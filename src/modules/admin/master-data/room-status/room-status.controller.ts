@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, ParseIntPipe } from '@nestjs/common';
-import { RoomTypeService } from './room-type.service';
-import { CreateRoomTypeRequestDto } from './dto/create-room-type-request.dto';
-import { UpdateRoomTypeRequestDto } from './dto/update-room-type-request.dto';
-import { RoomTypeResponseDto } from './dto/room-type-response.dto';
+import { RoomStatusService } from './room-status.service';
+import { CreateRoomStatusRequestDto } from './dto/create-room-status-request.dto';
+import { UpdateRoomStatusRequestDto } from './dto/update-room-status-request.dto';
+import { RoomStatusResponseDto } from './dto/room-status-response.dto';
 import { CurrentUser } from '@modules/auth/decorators/current-user.decorator';
 import { UserEntity } from '@modules/admin/system/user/entities/user.entity';
 import { ApiBearerAuth, ApiForbiddenResponse, ApiResponse, ApiTags, ApiUnauthorizedResponse, ApiNotFoundResponse } from '@nestjs/swagger';
@@ -10,45 +10,45 @@ import { Permissions } from '@modules/auth/decorators/permissions.decorator';
 import { ApiPaginatedResponse } from '@common/paginations/api-paginated-response.decorator';
 import { Paginate, type PaginateQuery } from 'nestjs-paginate';
 import { PaginatedResponse } from '@common/paginations/paginated-response.type';
-import { RoomTypeEntity } from './entities/room-type.entity';
+import { RoomStatusEntity } from './entities/room-status.entity';
 import { SWAGGER_TOKEN_NAME } from 'src/swagger/config';
 
-@ApiTags('RoomType')
+@ApiTags('RoomStatus')
 @ApiBearerAuth(SWAGGER_TOKEN_NAME)
 @Controller({
-  path: 'admin/master-data/room-type',
+  path: 'admin/room-status',
   version: '1',
 })
-export class RoomTypeController {
+export class RoomStatusController {
 
   constructor(
-    private roomTypeService: RoomTypeService,
+    private roomStatusService: RoomStatusService,
   ) {}
 
   @Post()
-  @Permissions('room-type-create')
+  @Permissions('room-status-create')
   @ApiResponse({
     status: 201,
-    type: RoomTypeResponseDto,
-    description: 'RoomType created successfully',
+    type: RoomStatusResponseDto,
+    description: 'RoomStatus created successfully',
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   @ApiForbiddenResponse({ description: 'Forbidden' })
   public create(
-    @Body() dto: CreateRoomTypeRequestDto,
+    @Body() dto: CreateRoomStatusRequestDto,
     @CurrentUser() user: UserEntity
-  ): Promise<RoomTypeResponseDto> {
-    return this.roomTypeService.create({
+  ): Promise<RoomStatusResponseDto> {
+    return this.roomStatusService.create({
       ...dto,
       createdByUserId: user.id,
     });
   }
 
   @Get()
-  @Permissions('room-type-read')
-  @ApiPaginatedResponse(RoomTypeResponseDto)
-  public findAll(@Paginate() query: PaginateQuery): Promise<PaginatedResponse<RoomTypeEntity, RoomTypeResponseDto>> {
-    return this.roomTypeService.list(query);
+  @Permissions('room-status-read')
+  @ApiPaginatedResponse(RoomStatusResponseDto)
+  public findAll(@Paginate() query: PaginateQuery): Promise<PaginatedResponse<RoomStatusEntity, RoomStatusResponseDto>> {
+    return this.roomStatusService.list(query);
   }
 
   @Get('select-options')
@@ -73,55 +73,55 @@ export class RoomTypeController {
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   public findAllForSelection(): Promise<{id: number; nameEn: string; nameKh: string}[]> {
-    return this.roomTypeService.findAllForSelection();
+    return this.roomStatusService.findAllForSelection();
   }
 
   @Get(':id')
-  @Permissions('room-type-read')
+  @Permissions('room-status-read')
   @ApiResponse({
     status: 200,
-    type: RoomTypeResponseDto,
-    description: 'Find one of RoomType',
+    type: RoomStatusResponseDto,
+    description: 'Find one of RoomStatus',
   })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   @ApiNotFoundResponse({ description: 'Not found' })
   public findOne(
     @Param('id', ParseIntPipe) id: number,
-  ): Promise<RoomTypeResponseDto> {
-    return this.roomTypeService.findOne(id);
+  ): Promise<RoomStatusResponseDto> {
+    return this.roomStatusService.findOne(id);
   }
 
   @Put(':id')
-   @Permissions('room-type-edit')
+  @Permissions('room-status-edit')
   @ApiResponse({
     status: 200,
-    type: RoomTypeResponseDto,
-    description: 'RoomType updated successfully',
+    type: RoomStatusResponseDto,
+    description: 'RoomStatus updated successfully',
   })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   @ApiNotFoundResponse({ description: 'Not found' })
   public update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() dto: UpdateRoomTypeRequestDto,
-  ): Promise<RoomTypeResponseDto> {
-    return this.roomTypeService.update(id, dto);
+    @Body() dto: UpdateRoomStatusRequestDto,
+  ): Promise<RoomStatusResponseDto> {
+    return this.roomStatusService.update(id, dto);
   }
 
   @Delete(':id')
-  @Permissions('room-type-delete')
+  @Permissions('room-status-delete')
   @ApiResponse({
     status: 200,
-    type: RoomTypeResponseDto,
-    description: 'RoomType deleted successfully',
+    type: RoomStatusResponseDto,
+    description: 'RoomStatus deleted successfully',
   })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
   @ApiNotFoundResponse({ description: 'Not found' })
   public remove(
     @Param('id', ParseIntPipe) id: number,
-  ): Promise<RoomTypeResponseDto> {
-    return this.roomTypeService.remove(id);
+  ): Promise<RoomStatusResponseDto> {
+    return this.roomStatusService.remove(id);
   }
 }

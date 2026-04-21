@@ -79,6 +79,9 @@ export class <%= classify(name) %>Service extends BasePaginationCrudService<<%= 
 
       const entity = await this.<%= camelize(name) %>Repository.findOne({
         where: { id },
+        relations: {
+          createdByUser: true,
+        },
       });
 
       if (!entity) throw new NotFoundException();

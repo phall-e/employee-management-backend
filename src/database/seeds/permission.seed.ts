@@ -101,4 +101,21 @@ export const permissions = [
             },
         ],
     },
+    {
+        name: 'Room Status',
+        permissions: [
+            {
+                name: 'room-status-read',
+            },
+            {
+                name: 'room-status-create',
+            },
+            {
+                name: 'room-status-edit',
+            },
+            {
+                name: 'room-status-delete',
+            },
+        ],
+    },
 ];

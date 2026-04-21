@@ -93,7 +93,7 @@ export class <%= classify(name) %>Controller {
   }
 
   @Put(':id')
-  @Permissions('<%= dasherize(name) %>-update')
+  @Permissions('<%= dasherize(name) %>-edit')
   @ApiResponse({
     status: 200,
     type: <%= classify(name) %>ResponseDto,
