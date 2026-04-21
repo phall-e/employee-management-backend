@@ -17,7 +17,7 @@ export class RoomMapper {
         dto.buildingId = entity.buildingId;
         dto.roomNumber = entity.roomNumber;   
         dto.roomTypeId = entity.roomTypeId; 
-        dto.price = entity.price;
+        dto.price = entity.price ? parseFloat(entity.price as any) : 0;
         dto.statusId = entity.statusId;
         dto.createdAt = entity.createdAt;
         dto.updatedAt = entity.updatedAt;
