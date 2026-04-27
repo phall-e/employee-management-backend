@@ -47,7 +47,8 @@ export class RoomService extends BasePaginationCrudService<RoomEntity, RoomRespo
     'createdByUser', 
     'building.branch', 
     'floor', 
-    'roomType'
+    'roomType',
+    'status',
   ];
 
   constructor(
@@ -83,13 +84,13 @@ export class RoomService extends BasePaginationCrudService<RoomEntity, RoomRespo
       const buildingCode = building.code;
       const floorCode = floor.code.split('-')[1] ?? null;
       let itemEntities = [];
-
+      let startNumber = Number(dto.startNumber);
       for (let i = 0; i < dto.itemLength; i++) {
         let entity = RoomMapper.toCreateEntity({
           ...dto,
-          roomNumber: `${branchCode}${buildingCode}${floorCode}-${dto.startNumber}`,
+          roomNumber: `${branchCode}${buildingCode}${floorCode}-${startNumber}`,
         });
-        dto.startNumber += 1;
+        startNumber += 1;
         itemEntities.push(entity);
       }
 
@@ -133,6 +134,12 @@ export class RoomService extends BasePaginationCrudService<RoomEntity, RoomRespo
         where: { id },
         relations: {
           createdByUser: true,
+          building: {
+            branch: true,
+          },
+          roomType: true,
+          status: true,
+          floor: true,
         },
       });
 

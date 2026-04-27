@@ -6,6 +6,7 @@ import { UserMapper } from "@modules/admin/system/user/user.mapper";
 import { RoomTypeMapper } from "../room-type/room-type.mapper";
 import { RoomStatusMapper } from "../room-status/room-status.mapper";
 import { BuildingMapper } from "../building/building.mapper";
+import { FloorMapper } from "../floor/floor.mapper";
 
 export class RoomMapper {
 
@@ -17,6 +18,7 @@ export class RoomMapper {
         dto.buildingId = entity.buildingId;
         dto.roomNumber = entity.roomNumber;   
         dto.roomTypeId = entity.roomTypeId; 
+        dto.floorId = entity.floorId;
         dto.price = entity.price ? parseFloat(entity.price as any) : 0;
         dto.statusId = entity.statusId;
         dto.createdAt = entity.createdAt;
@@ -25,6 +27,10 @@ export class RoomMapper {
 
         if (entity.building) {
             dto.building = await BuildingMapper.toDto(entity.building);
+        }
+
+        if (entity.floor) {
+            dto.floor = await FloorMapper.toDto(entity.floor);
         }
 
         if (entity.roomType) {

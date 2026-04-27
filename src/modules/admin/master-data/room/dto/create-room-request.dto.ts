@@ -9,12 +9,12 @@ export class CreateRoomRequestDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @Min(1)
+  // @Min(1)
   itemLength: number;
 
   @ApiProperty()
   @IsNotEmpty()
-  @Min(1)
+  // @Min(1)
   startNumber: number;
 
   @ApiProperty()

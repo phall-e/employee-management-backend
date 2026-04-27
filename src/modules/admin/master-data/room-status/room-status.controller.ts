@@ -16,7 +16,7 @@ import { SWAGGER_TOKEN_NAME } from 'src/swagger/config';
 @ApiTags('RoomStatus')
 @ApiBearerAuth(SWAGGER_TOKEN_NAME)
 @Controller({
-  path: 'admin/room-status',
+  path: 'admin/master-data/room-status',
   version: '1',
 })
 export class RoomStatusController {
