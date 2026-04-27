@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/
 import { UserService } from './user.service';
 import { CreateUserRequestDto } from './dto/create-user-request.dto';
 import { UpdateUserRequestDto } from './dto/update-user-request.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { ApiPaginatedResponse } from '@common/paginations/api-paginated-response.decorator';
 import { UserResponseDto } from './dto/user-response.dto';
 import { PaginatedResponse } from '@common/paginations/paginated-response.type';
@@ -30,6 +30,30 @@ export class UserController {
   @ApiPaginatedResponse(UserResponseDto)
   public findAll(@Paginate() queery: PaginateQuery): Promise<PaginatedResponse<UserEntity, UserResponseDto>> {
     return this.userService.list(queery);
+  }
+
+  @Get('select-options')
+  @ApiResponse({
+    status: 200,
+    schema: {
+      type: 'object',
+      properties: {
+        data: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'number' },
+              username: { type: 'string' },
+            },
+          },
+        },
+      },
+    },
+  })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized'})
+  public findAllForSelection(): Promise<{id: number; username: string}[]> {
+    return this.userService.findAllForSelection();
   }
 
   @Get(':id')

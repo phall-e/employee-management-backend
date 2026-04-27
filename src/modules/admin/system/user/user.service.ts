@@ -51,6 +51,23 @@ export class UserService extends BasePaginationCrudService<UserEntity, UserRespo
     }
   }
 
+  public async findAllForSelection(): Promise<{id: number; username: string;}[]> {
+    try {
+      const entity = await this.userRepository.find({
+        select: {
+          id: true,
+          username: true,
+        },
+        where: {
+          isActive: true,
+        }
+      });
+      return entity;
+    } catch (error) {
+      handleError(error);
+    }
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} user`;
   }
