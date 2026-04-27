@@ -66,7 +66,7 @@ export class BuildingController {
             code: { type: 'string' },
             nameEn: { type: 'string' },
             nameKh: { type: 'string' },
-            blockId: { type: 'number' },
+            branchId: { type: 'number' },
           },
         },
       },
@@ -74,7 +74,7 @@ export class BuildingController {
   },
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
-  public findAllForSelection(): Promise<{id: number; code: string; nameEn: string; nameKh: string; blockId: number}[]> {
+  public findAllForSelection(): Promise<{id: number; code: string; nameEn: string; nameKh: string; branchId: number}[]> {
     return this.buildingService.findAllForSelection();
   }
 

@@ -3,7 +3,7 @@ import { UpdateBuildingRequestDto } from "./dto/update-building-request.dto";
 import { BuildingResponseDto } from "./dto/building-response.dto";
 import { BuildingEntity } from "./entities/building.entity";
 import { UserMapper } from "@modules/admin/system/user/user.mapper";
-import { BlockMapper } from "../block/block.mapper";
+import { BranchMapper } from "../branch/branch.mapper";
 
 export class BuildingMapper {
 
@@ -16,13 +16,13 @@ export class BuildingMapper {
         dto.nameEn = entity.nameEn;
         dto.nameKh = entity.nameKh;
         dto.description = entity.description;
-        dto.blockId = entity.blockId;
+        dto.branchId = entity.branchId;
         dto.createdAt = entity.createdAt;
         dto.updatedAt = entity.updatedAt;
         dto.deletedAt = entity.deletedAt;
 
-        if (entity.block) {
-            dto.block = await BlockMapper.toDto(entity.block);
+        if (entity.branch) {
+            dto.branch = await BranchMapper.toDto(entity.branch);
         }
 
         if (entity.createdByUser) {
@@ -39,7 +39,7 @@ export class BuildingMapper {
         entity.nameEn = dto.nameEn;
         entity.nameKh = dto.nameKh;
         entity.description = dto.description;
-        entity.blockId = dto.blockId;
+        entity.branchId = dto.branchId;
         entity.createdByUserId = dto.createdByUserId;
 
         return entity;
@@ -51,7 +51,7 @@ export class BuildingMapper {
         entity.nameEn = dto.nameEn;
         entity.nameKh = dto.nameKh;
         entity.description = dto.description;
-        entity.blockId = dto.blockId;
+        entity.branchId = dto.branchId;
         
         return entity;
     }

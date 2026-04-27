@@ -45,7 +45,7 @@ export class RoomService extends BasePaginationCrudService<RoomEntity, RoomRespo
   ];
   protected RELATIONSIP_FIELDS = [
     'createdByUser', 
-    'building.block.branch', 
+    'building.branch', 
     'floor', 
     'roomType'
   ];
@@ -79,7 +79,7 @@ export class RoomService extends BasePaginationCrudService<RoomEntity, RoomRespo
       if (!floor) throw new NotFoundException('Floor not found');
       if (dto.itemLength < 1) throw new BadRequestException('The item length must bigger than 0');
 
-      const branchCode = building.block.branch.code.split('-')[0] ?? null;
+      const branchCode = building.branch.code.split('-')[0] ?? null;
       const buildingCode = building.code;
       const floorCode = floor.code.split('-')[1] ?? null;
       let itemEntities = [];
@@ -87,7 +87,7 @@ export class RoomService extends BasePaginationCrudService<RoomEntity, RoomRespo
       for (let i = 0; i < dto.itemLength; i++) {
         let entity = RoomMapper.toCreateEntity({
           ...dto,
-          roomNumber: `${branchCode}-${buildingCode}-${floorCode}-${dto.startNumber}`,
+          roomNumber: `${branchCode}${buildingCode}${floorCode}-${dto.startNumber}`,
         });
         dto.startNumber += 1;
         itemEntities.push(entity);

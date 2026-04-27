@@ -24,7 +24,7 @@ export class CreateBuildingRequestDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  blockId: number;
+  branchId: number;
 
   createdByUserId: number;
 

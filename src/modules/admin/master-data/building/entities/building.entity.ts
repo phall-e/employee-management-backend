@@ -1,7 +1,7 @@
 import { BaseEntity } from "@database/entities/base.entity";
 import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from "typeorm";
 import { UserEntity } from "@modules/admin/system/user/entities/user.entity";
-import { BlockEntity } from "../../block/entities/block.entity";
+import { BranchEntity } from "../../branch/entities/branch.entity";
 
 @Entity({
     schema: 'admin',
@@ -48,17 +48,17 @@ export class BuildingEntity extends BaseEntity {
     description: string;
 
     @Column({
-        name: 'block_id',
+        name: 'branch_id',
         type: 'integer',
         nullable: false,
     })
-    blockId: number;
+    branchId: number;
 
-    @ManyToOne(() => BlockEntity, { nullable: true })
+    @ManyToOne(() => BranchEntity, { nullable: true })
     @JoinColumn({
-        name: 'block_id',
+        name: 'branch_id',
     })
-    block: BlockEntity;
+    branch: BranchEntity;
 
     @Column({
         name: 'created_by_user_id',

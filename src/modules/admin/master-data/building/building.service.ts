@@ -17,7 +17,7 @@ export class BuildingService extends BasePaginationCrudService<BuildingEntity, B
     'nameEn',
     'nameKh',
     'description',
-    'blockId',
+    'branchId',
     
   ];
   protected FILTER_COLUMNS = [
@@ -25,18 +25,18 @@ export class BuildingService extends BasePaginationCrudService<BuildingEntity, B
     'nameEn',
     'nameKh',
     'description',
-    'blockId',
+    'branchId',
   ];
   protected SEARCHABLE_COLUMNS = [
     'code',
     'nameEn',
     'nameKh',
     'description',
-    'block.nameEn',
-    'block.nameKh',
+    'branch.nameEn',
+    'branch.nameKh',
     'createdByUser.username',
   ];
-  protected RELATIONSIP_FIELDS = ['createdByUser', 'block.branch'];
+  protected RELATIONSIP_FIELDS = ['createdByUser', 'branch'];
 
   constructor(
     @InjectRepository(BuildingEntity)
@@ -66,7 +66,7 @@ export class BuildingService extends BasePaginationCrudService<BuildingEntity, B
     }
   }
 
-  public async findAllForSelection(): Promise<{id: number; code: string; nameEn: string; nameKh: string; blockId: number}[]> {
+  public async findAllForSelection(): Promise<{id: number; code: string; nameEn: string; nameKh: string; branchId: number}[]> {
     try {
       const entity = await this.buildingRepository.find({
         select: {
@@ -74,7 +74,7 @@ export class BuildingService extends BasePaginationCrudService<BuildingEntity, B
           code: true,
           nameEn: true,
           nameKh: true,
-          blockId: true,
+         branchId: true,
         }
       });
       return entity;
@@ -89,9 +89,8 @@ export class BuildingService extends BasePaginationCrudService<BuildingEntity, B
       const entity = await this.buildingRepository.findOne({
         where: { id },
         relations: {
-          block: {
-            branch: true,
-          }
+          branch: true,
+          createdByUser: true,
         }
       });
 

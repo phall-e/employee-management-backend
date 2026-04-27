@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { UserResponseDto } from "@modules/admin/system/user/dto/user-response.dto";
-import { BlockResponseDto } from "../../block/dto/block-response.dto";
+import { BranchResponseDto } from "../../branch/dto/branch-response.dto";
 
 export class BuildingResponseDto {
 
@@ -20,10 +20,10 @@ export class BuildingResponseDto {
     description: string;
 
     @ApiProperty()
-    blockId: number;
+    branchId: number;
 
-    @ApiProperty({ type: () => BlockResponseDto })
-    block: BlockResponseDto;
+    @ApiProperty({ type: () => BranchResponseDto })
+    branch: BranchResponseDto;
 
     @ApiProperty()
     createdByUserId: number;

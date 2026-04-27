@@ -50,7 +50,7 @@ export class BuildingMigration1776695801120 implements MigrationInterface {
                     },
                      
                     {
-                        name: 'block_id',
+                        name: 'branch_id',
                         type: 'integer',
                         isNullable: false,
                     },
@@ -67,7 +67,7 @@ export class BuildingMigration1776695801120 implements MigrationInterface {
         );
 
         const foreignKeys = [
-            { column: 'block_id', refTable: 'admin.blocks' },
+            { column: 'branch_id', refTable: 'admin.branches' },
             { column: 'created_by_user_id', refTable: 'admin.users' },
         ];  
 

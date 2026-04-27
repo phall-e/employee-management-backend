@@ -94,9 +94,7 @@ export class RoomPaymentService extends BasePaginationCrudService<RoomPaymentEnt
           roomTenant: {
             room: {
               building: {
-                block: {
-                  branch: true,
-                }
+                branch: true,
               },
               floor: true,
             },

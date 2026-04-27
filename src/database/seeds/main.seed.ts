@@ -12,8 +12,6 @@ import { BranchEntity } from '@modules/admin/master-data/branch/entities/branch.
 import { branches } from './branch.seed';
 import { FloorEntity } from '@modules/admin/master-data/floor/entities/floor.entity';
 import { floors } from './floor.seed';
-import { BlockEntity } from '@modules/admin/master-data/block/entities/block.entity';
-import { blocks } from './block.seed';
 import { BuildingEntity } from '@modules/admin/master-data/building/entities/building.entity';
 import { buildings } from './building.seed';
 import { RoomTypeEntity } from '@modules/admin/master-data/room-type/entities/room-type.entity';
@@ -62,7 +60,6 @@ export default class MainSeeder implements Seeder {
 
         await database.manager.save(BranchEntity, branches);
         await database.manager.save(FloorEntity, floors);
-        await database.manager.save(BlockEntity, blocks);
         await database.manager.save(BuildingEntity, buildings);
         await database.manager.save(RoomTypeEntity, roomTypes);
         await database.manager.save(RoomStatusEntity, roomStatuses);

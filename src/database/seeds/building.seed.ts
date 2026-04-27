@@ -1,18 +1,18 @@
 export const buildings = [
   {
-    code: 'B1',
-    nameEn: 'Building 1',
-    nameKh: 'អាគារ B1',
-    description: 'Building 1',
+    code: 'A',
+    nameEn: 'Building A',
+    nameKh: 'អាគារ A',
+    description: 'Building A',
     createdByUserId: 1,
-    blockId: 1,
+    branchId: 1,
   },
   {
-    code: 'B2',
-    nameEn: 'Building 2',
-    nameKh: 'អាគារ B2',
-    description: 'Building 2',
+    code: 'B',
+    nameEn: 'Building B',
+    nameKh: 'អាគារ B',
+    description: 'Building B',
     createdByUserId: 1,
-    blockId: 1,
+    branchId: 1,
   },
 ];
