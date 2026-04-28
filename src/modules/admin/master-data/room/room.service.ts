@@ -111,16 +111,27 @@ export class RoomService extends BasePaginationCrudService<RoomEntity, RoomRespo
     }
   }
 
-  public async findAllForSelection(): Promise<{id: number; roomNumber: string; buildingId: number; floorId: number}[]> {
+  public async findAllForSelection(isAvailable: boolean): Promise<{id: number; roomNumber: string; buildingId: number; floorId: number; roomTypeId: number; price: number}[]> {
     try {
-      const entity = await this.roomRepository.find({
+      let where = {};
+      if (isAvailable) {
+        where = {
+          statusId: 1,
+        };
+      }
+
+      let entity = await this.roomRepository.find({
         select: {
           id: true,
           roomNumber: true,
           buildingId: true,
           floorId: true,
-        }
+          roomTypeId: true,
+          price: true,
+        },
+        where,
       });
+      
       return entity;
     } catch (error) {
       handleError(error);

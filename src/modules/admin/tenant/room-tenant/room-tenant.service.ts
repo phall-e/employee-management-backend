@@ -55,7 +55,7 @@ export class RoomTenantService extends BasePaginationCrudService<RoomTenantEntit
     'room.floor', 
     'room.roomType', 
     'room.status', 
-    'room.building.block.branch',
+    'room.building.branch',
   ];
 
   constructor(

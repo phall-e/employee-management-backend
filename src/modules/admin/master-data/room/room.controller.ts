@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, ParseIntPipe, Query } from '@nestjs/common';
 import { RoomService } from './room.service';
 import { CreateRoomRequestDto } from './dto/create-room-request.dto';
 import { UpdateRoomRequestDto } from './dto/update-room-request.dto';
@@ -66,6 +66,7 @@ export class RoomController {
               roomNumber: { type: 'string' },
               buildingId: { type: 'number' },
               floorId: { type: 'number' },
+              roomTypeId: { type: 'number' },
             },
           },
         },
@@ -73,8 +74,8 @@ export class RoomController {
     },
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized'})
-  public findAllForSelection(): Promise<{id: number; roomNumber: string; buildingId: number; floorId: number}[]> {
-    return this.roomService.findAllForSelection();
+  public findAllForSelection(@Query('isAvailable') isAvailable: boolean): Promise<{id: number; roomNumber: string; buildingId: number; floorId: number; roomTypeId: number; price: number}[]> {
+    return this.roomService.findAllForSelection(isAvailable);
   }
 
   @Get(':id')
