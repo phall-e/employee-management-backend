@@ -16,5 +16,6 @@ import { BuildingModule } from '../building/building.module';
   ],
   controllers: [RoomController],
   providers: [RoomService],
+  exports: [RoomService],
 })
 export class RoomModule {}

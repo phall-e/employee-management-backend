@@ -3,6 +3,8 @@ import { UpdateRoomTenantRequestDto } from "./dto/update-room-tenant-request.dto
 import { RoomTenantResponseDto } from "./dto/room-tenant-response.dto";
 import { RoomTenantEntity } from "./entities/room-tenant.entity";
 import { UserMapper } from "@modules/admin/system/user/user.mapper";
+import { RoomMapper } from "@modules/admin/master-data/room/room.mapper";
+import { TenantStatusMapper } from "./tenant-status.mapper";
 
 export class RoomTenantMapper {
 
@@ -36,6 +38,14 @@ export class RoomTenantMapper {
 
         if (entity.createdByUser) {
             dto.createdByUser = await UserMapper.toDto(entity.createdByUser);
+        }
+
+        if (entity.room) {
+            dto.room = await RoomMapper.toDto(entity.room);
+        }
+
+        if (entity.status) {
+            dto.status = await TenantStatusMapper.toDto(entity.status);
         }
 
         return dto;

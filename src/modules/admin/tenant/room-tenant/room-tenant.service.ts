@@ -5,10 +5,11 @@ import { UpdateRoomTenantRequestDto } from './dto/update-room-tenant-request.dto
 import { RoomTenantResponseDto } from './dto/room-tenant-response.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RoomTenantEntity } from './entities/room-tenant.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { RoomTenantMapper } from './room-tenant.mapper';
 import { handleError } from '@utils/handle-error.util';
 import { TenantStatusEntity } from './entities/tenant-status.entity';
+import { RoomService } from '@modules/admin/master-data/room/room.service';
 
 @Injectable()
 export class RoomTenantService extends BasePaginationCrudService<RoomTenantEntity, RoomTenantResponseDto> {
@@ -56,6 +57,7 @@ export class RoomTenantService extends BasePaginationCrudService<RoomTenantEntit
     'room.roomType', 
     'room.status', 
     'room.building.branch',
+    'status',
   ];
 
   constructor(
@@ -63,6 +65,8 @@ export class RoomTenantService extends BasePaginationCrudService<RoomTenantEntit
     private roomTenantRepository: Repository<RoomTenantEntity>,
     @InjectRepository(TenantStatusEntity)
     private tenantStatusRepository: Repository<TenantStatusEntity>,
+    private roomService: RoomService,
+    private dataSource: DataSource,
   ) {
     super();
   }
@@ -76,15 +80,33 @@ export class RoomTenantService extends BasePaginationCrudService<RoomTenantEntit
   }
 
   public async create(dto: CreateRoomTenantRequestDto): Promise<RoomTenantResponseDto> {
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
     try {
 
       let entity = RoomTenantMapper.toCreateEntity(dto);
+
+      let roomEntity = await this.roomService.findOne(dto.roomId);
+      if (!roomEntity) throw new NotFoundException('Room not found');
+
+      roomEntity = await this.roomService.update(roomEntity.id, {
+        statusId: 2,
+      });
+
       entity = await this.roomTenantRepository.save(entity);
+
+      await queryRunner.commitTransaction();
 
       return await RoomTenantMapper.toDto(entity);
 
     } catch (error) {
+      await queryRunner.rollbackTransaction();
       handleError(error);
+    } finally {
+      queryRunner.release();
     }
   }
 
@@ -110,6 +132,14 @@ export class RoomTenantService extends BasePaginationCrudService<RoomTenantEntit
         where: { id },
         relations: {
           createdByUser: true,
+          status: true,
+          room: {
+            building: {
+              branch: true,
+            },
+            roomType: true,
+            floor: true,
+          },
         },
       });
 

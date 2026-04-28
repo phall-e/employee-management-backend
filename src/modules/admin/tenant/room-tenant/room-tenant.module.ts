@@ -4,6 +4,7 @@ import { RoomTenantController } from './room-tenant.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoomTenantEntity } from './entities/room-tenant.entity';
 import { TenantStatusEntity } from './entities/tenant-status.entity';
+import { RoomModule } from '@modules/admin/master-data/room/room.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { TenantStatusEntity } from './entities/tenant-status.entity';
       TenantStatusEntity,
       RoomTenantEntity,
     ]),
+    RoomModule,
   ],
   controllers: [RoomTenantController],
   providers: [RoomTenantService],
